@@ -1,11 +1,131 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
+<%- include('./partials/header') %>
+
+<div class="home__grid">
+  <div class="home__grid-area left">
+    <div class="home__grid-left-top">
+      <h1 class="home__title">Noted<span>.</span></h1>
+      <p class="home__subtitle">Welcome back</p>
+
+      <p class="home__description">
+        Made with ❤️ using with ejs, express and mongodb
+      </p>
+
+      <a class="button-53">
+        Login with
+        <img
+          width="27"
+          height="27"
+          src="https://img.icons8.com/color/48/google-logo.png"
+          alt="google-logo"
+          style="margin-left: 5px"
+        />
+      </a>
+    </div>
+
+    <a
+      href="#"
+      class="home__github-link"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <img
+        src="https://img.icons8.com/ios-filled/50/000000/github.png"
+        alt="github-logo"
+        style="margin-right: 5px"
+        height="17"
+        width="17"
+      />
+      View on GitHub
+    </a>
+  </div>
+
+  <div class="home__grid-area right">
+    <div class="home__features-card">
+      <ul class="home__features-list">
+        <li class="home__features-item">
+          <p><i class="las la-check-circle"></i> Take notes easily</p>
+        </li>
+        <li class="home__features-item">
+          <p><i class="las la-check-circle"></i> Organize notes with folders</p>
+        </li>
+        <li class="home__features-item">
+          <p>
+            <i class="las la-check-circle"></i> Share notes securely with anyone
+          </p>
+        </li>
+        <li class="home__features-item">
+          <p>
+            <i class="las la-check-circle"></i> AI powered summary generation
+          </p>
+        </li>
+      </ul>
+      <div
+        class="animate animate__animated animate animate__animated animate__jackInTheBox okay"
+      >
+        <img
+          src="https://i.postimg.cc/SN98SDSv/37-Okay-01.png"
+          alt=""
+          style="
+            position: absolute;
+            bottom: -500px;
+            right: 180px;
+            width: 700px;
+            height: 700px;
+            z-index: 100;
+            overflow: hidden;
+            rotate: 10deg;
+          "
+        />
+      </div>
+
+      <div class="peace">
+        <img
+          src="https://i.postimg.cc/MHgm63Yb/4-Victory-04.png"
+          alt=""
+          style="
+            position: absolute;
+            bottom: -700px;
+            right: 350px;
+            width: 700px;
+            height: 700px;
+            z-index: 100;
+            overflow: hidden;
+            transform: rotate(-10deg);
+          "
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const button = document.querySelector(".button-53");
+  const peace = document.querySelector(".peace img");
+  const okay = document.querySelector(".okay img");
+
+  button.addEventListener("mouseover", function () {
+    okay.classList.remove("animate__animated", "animate");
+    this.classList.add("animate__animated", "animate__tada");
+
+    peace.classList.add("animate__animated", "animate__bounceInUp");
+    peace.style.transition = "bottom 0.2s ease-out";
+    peace.style.bottom = "-100px";
+
+    okay.classList.add("animate__animated", "animate__fadeOutDown");
+    okay.style.bottom = "-500px";
+  });
+
+  button.addEventListener("mouseout", function () {
+    this.classList.remove("animate__animated", "animate__tada");
+
+    peace.classList.remove("animate__animated", "animate__bounceInUp");
+    okay.classList.remove("animate__animated", "animate__fadeOutDown");
+
+    peace.style.transition = "bottom .2s ease-in";
+    peace.style.bottom = "-700px";
+
+    okay.classList.add("animate__animated", "animate__fadeInUp");
+
+    okay.style.bottom = "-500px";
+  });
+</script>
