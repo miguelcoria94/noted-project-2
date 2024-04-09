@@ -38,6 +38,7 @@
   const expandButton = document.querySelector("#expand");
   const sidebarTitle = document.querySelector(".collapsed-title");
   const sidbarTitleExpaneded = document.querySelector(".expanded-title");
+  const allSideBarText = document.querySelectorAll(".sidebar__link-text");
 
   collapseButton.addEventListener("click", function () {
     layoutSidebar.classList.toggle("collapsed");
@@ -48,6 +49,10 @@
     sidebarTitle.style.visibility = "visible";
     sidebarTitle.style.display = "inline-block";
     sidbarTitleExpaneded.style.display = "none";
+
+    allSideBarText.forEach((text) => {
+      text.style.display = "none";
+    });
   });
 
   expandButton.addEventListener("click", function () {
@@ -59,6 +64,10 @@
     sidebarTitle.style.visibility = "hidden";
     sidebarTitle.style.display = "none";
     sidbarTitleExpaneded.style.display = "inline-block";
+
+    allSideBarText.forEach((text) => {
+      text.style.display = "inline-block";
+    });
   });
 </script>
 

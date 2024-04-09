@@ -3,16 +3,58 @@
 <div class="layout__wrapper">
   <div class="layout__sidebar">
     <div>
-      <h1 class="sidebar__title collapsed-title"><i class="las la-sticky-note"></i><span>.</span></h1>
-      <h1 class="sidebar__title expanded-title">N<div style="display: inline" class="sidebar__title-expanded">oted</div><span>.</span></h1>
+      <h1 class="sidebar__title collapsed-title">
+        <i class="las la-sticky-note"></i><span>.</span>
+      </h1>
+      <h1 class="sidebar__title expanded-title">
+        N<div style="display: inline" class="sidebar__title-expanded">oted</div>
+        <span>.</span>
+      </h1>
     </div>
-    <div></div>
+    <div>
+      <ul>
+        <li>
+          <a href="/dashboard" class="sidebar-link">
+            <div>
+              <i class="las la-home"></i>
+              <span class="sidebar__link-text">Dashboard</span>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="/notes" class="sidebar-link">
+            <div>
+              <i class="las la-sticky-note"></i>
+              <span class="sidebar__link-text">Notes</span>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="/categories" class="sidebar-link">
+            <div>
+              <i class="las la-list"></i>
+              <span class="sidebar__link-text">Categories</span>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="/users" class="sidebar-link">
+            <div>
+              <i class="las la-share"></i>
+              <span class="sidebar__link-text">Shared Notes</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
 
     <div class="layout__sidebar-logout-container">
       <!-- logout -->
-      <a href="/logout" method="post">
-        <i class="las la-sign-out-alt"></i>
-        <span>Logout</span>
+      <a href="/logout" method="post" class="sidebar-link">
+        <div>
+          <i class="las la-sign-out-alt logout"></i>
+          <span class="sidebar__link-text logout">Logout</span>
+        </div>
       </a>
     </div>
   </div>

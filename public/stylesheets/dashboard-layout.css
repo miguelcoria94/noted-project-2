@@ -28,7 +28,25 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
+  background: radial-gradient(
+      circle at bottom left,
+      transparent 25%,
+      #fcfcfc 25.5%,
+      #fcfcfc 36%,
+      transparent 37%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at top right,
+      transparent 34%,
+      #fcfcfc 34.5%,
+      #fcfcfc 45.5%,
+      transparent 46%,
+      transparent 100%
+    );
+  background-size: 3em 3em;
+  background-color: #ffffff;
+  opacity: 1;
 }
 
 .layout__sidebar-collapse {
@@ -85,7 +103,7 @@
   color: #383838;
   margin: 0;
   font-family: "Paytone One", sans-serif;
-  
+
   padding-top: 2rem;
 }
 
@@ -103,4 +121,32 @@
   display: none;
   margin-left: 0;
   font-size: 2rem;
+}
+
+.layout__sidebar-logout-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #1e1e1e !important;
+}
+
+.sidebar-link {
+  text-decoration: none;
+  color: #7f7f7f;
+  font-size: 1.2rem;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s;
+  font-weight: 400;
+}
+
+.sidebar-link .logout {
+  color: #3dd1e7;
+}
+.sidebar-link:hover {
+  color: #5473b1;
 }
