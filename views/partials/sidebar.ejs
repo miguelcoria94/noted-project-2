@@ -1,7 +1,20 @@
 <%- include('../partials/header') %>
 
 <div class="layout__wrapper">
-  <div class="layout__sidebar"></div>
+  <div class="layout__sidebar">
+    <div>
+      <h1 class="sidebar__title collapsed-title"><i class="las la-sticky-note"></i><span>.</span></h1>
+      <h1 class="sidebar__title expanded-title">N<div style="display: inline" class="sidebar__title-expanded">oted</div><span>.</span></h1>
+    </div>
+    <div></div>
+
+    <div>
+      <!-- logout -->
+      <a href="/logout" method="post">
+        <button type="submit">Logout</button>
+      </a>
+    </div>
+  </div>
   <div class="layout__container">
     <!-- subheader partial -->
     <%- include('../partials/subheader') %>

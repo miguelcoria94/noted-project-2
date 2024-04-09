@@ -18,13 +18,20 @@
 
 .layout__sidebar {
   width: 300px;
-  padding: 1rem;
   background-color: white;
 
-  border: 2px solid #e0e0e0;
+  border-right: 2px solid #e8e8e8;
   height: 100vh;
   color: white;
   transition: width 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.layout__sidebar-collapse {
+  justify-items: center;
+  align-items: center;
 }
 
 .layout__container {
@@ -34,40 +41,64 @@
 }
 
 .collapsed {
-  width: 60px;
+  width: 70px;
 }
 
- .layout__subheader {
-    color: #383838;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    z-index: 100;
-    background-color: #F5F5F5;
+.layout__subheader {
+  color: #383838;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  z-index: 100;
+  background-color: white;
 
-  }
-  
+  border-bottom: 2px solid #e8e8e8;
+}
 
-  #expand {
-    display: none;
-  }
+#expand {
+  display: none;
+}
 
-  .layout__subheader-icon {
-    font-size: 2rem;
-    cursor: pointer;
-    transition: display 0.3s;
-  }
+.layout__subheader-icon {
+  font-size: 2rem;
+  cursor: pointer;
+  transition: display 0.3s;
+}
 
-  .layout__subheader__user {
-    display: flex;
-    align-items: center;
+.layout__subheader__user {
+  display: flex;
+  align-items: center;
+}
 
-  }
+.layout__subheader__user__avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
 
-  .layout__subheader__user__avatar img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 1rem;
-  }
+.sidebar__title {
+  font-size: 3rem;
+  color: #383838;
+  margin: 0;
+  font-family: "Paytone One", sans-serif;
+  margin-left: 2rem;
+  padding-top: 2rem;
+}
+
+.sidebar__title span {
+  color: #c340bfc5;
+}
+
+.sidebar__title-collapse {
+  font-size: 2rem;
+  color: #383838;
+  margin: 0;
+}
+
+.collapsed-title {
+  display: none;
+  margin-left: 0;
+  font-size: 2rem;
+}
