@@ -27,6 +27,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+
 }
 
 .layout__sidebar-collapse {
@@ -83,7 +85,7 @@
   color: #383838;
   margin: 0;
   font-family: "Paytone One", sans-serif;
-  margin-left: 2rem;
+  
   padding-top: 2rem;
 }
 
