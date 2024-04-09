@@ -1,0 +1,42 @@
+<%- include('../partials/header') %>
+
+<div class="layout__wrapper">
+  <div class="layout__sidebar"></div>
+  <div class="layout__container">
+    <!-- subheader partial -->
+    <%- include('../partials/subheader') %>
+
+    <!--     
+    <div class="layoutBody">content</div>
+  </div>
+</div> -->
+    <!-- </div>
+</div> -->
+
+    <style>
+      .layout__wrapper {
+        display: flex;
+        align-items: stretch;
+        min-height: 100%;
+      }
+
+      .layout__sidebar {
+        width: 300px;
+        padding: 1rem;
+        background-color: #ffffff;
+        border: 2px solid #e0e0e0;
+        height: 100vh;
+        color: white;
+        transition: width 0.2s ease;
+      }
+
+      .layout__container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .collapsed {
+        width: 60px;
+      }
+    </style>
