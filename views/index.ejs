@@ -85,7 +85,7 @@
           style="
             position: absolute;
             bottom: -700px;
-            right: 350px;
+            right: 27%;
             width: 700px;
             height: 700px;
             z-index: 100;
@@ -105,7 +105,7 @@
 
   button.addEventListener("mouseover", function () {
     okay.classList.remove("animate__animated", "animate");
-    this.classList.add("animate__animated", "animate__tada");
+    this.classList.add("animate__animated", "animate__pulse");
 
     peace.classList.add("animate__animated", "animate__bounceInUp");
     peace.style.transition = "bottom 0.2s ease-out";
@@ -116,7 +116,7 @@
   });
 
   button.addEventListener("mouseout", function () {
-    this.classList.remove("animate__animated", "animate__tada");
+    this.classList.remove("animate__animated", "animate__pulse");
 
     peace.classList.remove("animate__animated", "animate__bounceInUp");
     okay.classList.remove("animate__animated", "animate__fadeOutDown");
