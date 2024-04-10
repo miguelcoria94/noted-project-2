@@ -11,9 +11,12 @@ const noteSchema = new Schema(
       ref: "User",
     },
     aiSummary: String,
-    
+
   },
   {
     timestamps: true,
   }
 );
+
+
+module.exports = mongoose.model("Note", noteSchema);

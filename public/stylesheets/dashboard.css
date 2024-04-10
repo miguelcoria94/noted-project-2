@@ -1,0 +1,22 @@
+.dashboard__create-note-button {
+  border-radius: 5px;
+  background-color: #3dd1e7;
+  color: #fcfefe;
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  padding: 0.75rem 1.65rem;
+  cursor: pointer;
+}
+
+.dashboard__create-note-button:hover {
+  background-color: #47bdcf;
+}
+
+.dashboard__notes {
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
