@@ -26,6 +26,29 @@
 </style>
 
 
+<script>
+  // check for inital login in local storage and show toast
+  if (sessionStorage.getItem("initialLogin") !== null){
+    Toastify({
+      text: "You're logged in! 🎉 ",
+      duration: 3000,
+      destination: "/notes",
+      newWindow: false,
+      close: true,
+      gravity: "top", // `top` or `bottom`
+      position: "center", // `left`, `center` or `right`
+      stopOnFocus: true, // Prevents dismissing of toast on hover
+      style: {
+        background: "linear-gradient(to right, #c340bfc5, #3dd1e7)",
+      },
+      onClick: function(){} // Callback after click
+    }).showToast();
+    
+
+    sessionStorage.removeItem("initialLogin");
+  }
+</script>
+
 <%- include('../partials/footer') %>
 
 
