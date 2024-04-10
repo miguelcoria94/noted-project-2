@@ -51,6 +51,7 @@
     sidbarTitleExpaneded.style.display = "none";
 
     allSideBarText.forEach((text) => {
+      text.style.opacity = "0";
       text.style.display = "none";
     });
   });
@@ -66,6 +67,7 @@
     sidbarTitleExpaneded.style.display = "inline-block";
 
     allSideBarText.forEach((text) => {
+      text.style.opacity = "1";
       text.style.display = "inline-block";
     });
   });
