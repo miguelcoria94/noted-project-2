@@ -42,22 +42,26 @@
       this.wrapper.classList.add("simple-list");
 
       this.list = document.createElement("ul");
+      this.list.style.width = "100%";
       this.data.items.forEach((item) => {
         const li = document.createElement("li");
-        li.contentEditable = true; 
+        li.contentEditable = true;
         li.innerText = item;
         this.list.appendChild(li);
-        li.style.listStyleType = "disc";
       });
       this.wrapper.appendChild(this.list);
 
       const addItemButton = document.createElement("button");
+      addItemButton.style.padding = "5px";
+      addItemButton.style.marginTop = "15px";
       addItemButton.innerText = "Add item";
-      addItemButton.type = "button"; 
+      addItemButton.type = "button";
       addItemButton.onclick = () => this.addItem();
       this.wrapper.appendChild(addItemButton);
       this.wrapper.style.border = "1px dashed lightgray";
-      this.wrapper.style.padding = "5px";
+      this.wrapper.style.borderRadius = "5px";
+      this.wrapper.style.marginTop = "10px";
+      this.wrapper.style.padding = "10px";
 
       return this.wrapper;
     }
@@ -95,11 +99,14 @@
 
     render() {
       const h2 = document.createElement("h2");
-      h2.contentEditable = "true"; 
-      h2.innerText = this.data.text || ""; 
+      h2.contentEditable = "true";
+      h2.innerText = this.data.text || "";
 
       h2.style.border = "1px dashed lightgray";
       h2.style.padding = "5px";
+      h2.style.borderRadius = "5px";
+      h2.style.marginTop = "10px";
+      h2.style.padding = "10px";
       h2.classList.add("note__header");
 
       return h2;

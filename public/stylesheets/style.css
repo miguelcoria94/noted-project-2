@@ -12,6 +12,10 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+.codex-editor {
+  width: 100%;
+}
+
 a {
   text-decoration: none;
 }
