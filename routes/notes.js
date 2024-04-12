@@ -10,5 +10,7 @@ router.get("/:id", ensureLoggedIn, notesCtrl.show);
 router.get("/:id/edit", ensureLoggedIn, notesCtrl.editForm);
 router.put("/:id/update", ensureLoggedIn, notesCtrl.update);
 router.delete("/:id", ensureLoggedIn, notesCtrl.delete);
+router.post("/:id/share", ensureLoggedIn, notesCtrl.share);
+
 
 module.exports = router;

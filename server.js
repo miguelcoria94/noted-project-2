@@ -16,6 +16,8 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const notesRouter = require("./routes/notes");
 const dashboardRouter = require("./routes/dashboard");
+const folderRouter = require("./routes/folders");
+const sharedRouter = require("./routes/shared");
 
 var app = express();
 
@@ -50,6 +52,8 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/dashboard", dashboardRouter);
 app.use("/notes", notesRouter);
+app.use("/folders", folderRouter);
+app.use("/shared", sharedRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

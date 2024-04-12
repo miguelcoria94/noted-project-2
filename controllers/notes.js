@@ -1,5 +1,6 @@
 const { set } = require("mongoose");
 const Note = require("../models/note");
+const User = require("../models/user");
 
 const {
   GoogleGenerativeAI,
@@ -69,6 +70,8 @@ async function show(req, res) {
     note,
     newNote: false,
     editNote: false,
+    shared: false,
+    failed: false,
   });
 }
 
@@ -87,6 +90,8 @@ async function update(req, res) {
       note,
       editNote: true,
       newNote: false,
+      shared: false,
+      failed: false,
     });
   }, 50);
 }
@@ -109,6 +114,8 @@ async function create(req, res) {
       note,
       newNote: true,
       editNote: false,
+      shared: false,
+      failed: false,
     });
   }, 50);
 }
@@ -138,6 +145,42 @@ async function deleteNoteForm(req, res) {
   }, 50);
 }
 
+async function share(req, res) {
+  const note = await Note.findById(req.params.id);
+  const user = await User.findOne({ email:
+    req.body.email
+  });
+
+  if (user){
+
+    note.usersWithAccess.push(user._id);
+  }
+
+  await note.save();
+
+  if (!user) {
+    res.render("notes/_id", {
+      title: "Note",
+      note,
+      shared: false,
+      newNote: false,
+      editNote: false,
+      failed: true,
+    });
+    return;
+  }
+
+  res.render("notes/_id", {
+    title: "Note",
+    note,
+    shared: true,
+    newNote: false,
+    editNote: false,
+    failed: false,
+
+  });
+}
+
 module.exports = {
   new: newNoteForm,
   delete: deleteNoteForm,
@@ -146,4 +189,5 @@ module.exports = {
   edit,
   update,
   editForm,
+  share,
 };

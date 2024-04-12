@@ -1,0 +1,130 @@
+
+<%- include('../partials/header') %> <%- include('../partials/sidebar') %>
+
+
+<div class="layout__container">
+  <div class="layout__body">
+      <a href="/folders" style="color: #3dd1e7; font-weight: bold; margin-bottom: 2rem; display: block;"
+            ><i class="las la-arrow-left" style="position: relative;top: 1px;"></i> Cancel</a
+          >
+    <div class="layout__body-header">
+      <h2 class="dashboard__title">Edit Folder</h2>
+    </div>
+
+
+    <div class="layout__body-content">
+      <form action="/folders/<%= folder._id %>?_method=PUT" method="POST">
+        <div class="form__group">
+          <label for="name" class="form__label">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            class="form__input"
+            placeholder="Enter folder name"
+            required
+            value="<%= folder.name %>"
+          />
+        </div>
+        <div class="form__group">
+          <label for="description" class="form__label">Select Notes</label>
+
+          <% notes.forEach(note => { %>
+          <div >
+            <input
+              type="checkbox"
+              name="notes"
+              id="<%= note._id %>"
+              value="<%= note._id %>"
+              checked="<%= folder.notes.includes(note._id) %>"
+            />
+            <label for="<%= note._id %>" class="form__label"
+              ><%= note.title %></label
+            >
+            <% }) %>
+
+        </div>
+
+        <button class="dashboard__create-note-button">Create Folder</button>
+      </form>
+    </div>
+
+    <style>
+      .layout__body {
+        padding: 1rem;
+        background: #f6f7fb;
+        width: 90%;
+        padding-top: 13%;
+        padding-left: 19%;
+        margin-left: auto;
+      }
+
+      .dashboard__title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #2a2438;
+
+        font-weight: 300;
+      }
+
+      .layout__body-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .dashboard__create-note-button {
+        border-radius: 5px;
+        background-color: #3dd1e7;
+        color: #fcfefe;
+        font-size: 1rem;
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
+          rgba(17, 17, 26, 0.05) 0px 8px 32px;
+        border: 2px solid #16b5ce;
+      }
+
+      .layout__body-content {
+        
+
+            background-color: white !important;
+    padding: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+
+      }
+
+      .form__group {
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+
+      }
+
+      label {
+        margin-bottom: 0.5rem;
+        color: #2a2438;
+        font-size: 1rem;
+        font-weight: 400;
+      }
+
+      input {
+        margin-bottom: 1rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+        padding: 0.5rem;
+
+
+      }
+      html {
+        overflow: scroll !important;
+      }
+    </style>
+
+    <%- include('../partials/footer') %>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<%- include('../partials/header') %> <%- include('../partials/sidebar') %>
+
+<div class="layout__body">
+  <h1 class="dashboard__title">Shared Notes</h1>
+
+  <% if (userNotes.length > 0) { %>
+  <div class="dashboard__notes">
+    
+
+    <div class="dashboard__card-grid">
+      <% userNotes.forEach(note => { %>
+      <div class="dashboard__card">
+        <div class="dashboard__note-header">
+          <h3 class="dashboard__card-title"><%= note.title %></h3>
+        </div>
+        <div class="dashboard__card-footer">
+          <a
+            href="/notes/<%= note._id %>"
+            class="dashboard__note-action view-button"
+            >Go to note <i class="las la-angle-double-right" style="position: relative;top: 1px;"></i></a>
+          
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+    <% } else { %>
+    <div class="dashboard__notes">
+      <div class="dashboard__header">
+        <p>No notes have been shared with you yet.</p>
+        
+      </div>
+    </div>
+    <% } %>
+  </div>
+
+  <style>
+    .layout__body {
+      padding: 1rem;
+      background: #f6f7fb;
+      width: 80%;
+      padding-top: 10%;
+      padding-right: 8%;
+      margin-left: auto;
+    }
+    .dashboard__title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #2a2438;
+
+      font-weight: 300;
+    }
+  </style>
+
+  
+
+  <style>
+    html {
+      overflow: scroll !important;
+    }
+  </style>
+
+  <%- include('../partials/footer') %>
+</div>

@@ -1,0 +1,81 @@
+<%- include('../partials/header') %> <%- include('../partials/sidebar') %>
+
+<div class="layout__body">
+  <h1 class="dashboard__title">Folder - <%= folder.name %></h1>
+
+  <% if (userNotes.length > 0) { %>
+  <div class="dashboard__notes">
+    <div class="dashboard__header" style="margin-bottom: 2rem;">
+        <a href="/folders" style="color: #3dd1e7; font-weight: bold;"
+          ><i class="las la-arrow-left" style="position: relative;top: 1px;"></i> Back to Folders</a
+        >
+
+        <div style="display: flex; gap: 5;">
+          <a href="/folders/<%= folder._id %>/edit" class="dashboard__create-note-button" style="padding: 0.5rem 1rem;"
+            >Edit Folder</a
+          >
+          <form action="/folders/<%= folder._id %>?_method=DELETE" method="POST">
+          <button class="dashboard__create-note-button delete-button" style="background: #ff4d4d; margin-left: 1rem;">Delete Folder</button>
+        </form>
+        </div>
+
+        
+
+    </div>
+
+    <div class="dashboard__card-grid">
+      <% userNotes.forEach(note => { %>
+      <div class="dashboard__card">
+        <div class="dashboard__note-header">
+          <h3 class="dashboard__card-title"><%= note.title %></h3>
+        </div>
+        <div class="dashboard__card-footer">
+          <a
+            href="/notes/<%= note._id %>"
+            class="dashboard__note-action view-button"
+            >Go to note <i class="las la-angle-double-right" style="position: relative;top: 1px;"></i></a>
+          
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+    <% } else { %>
+    <div class="dashboard__notes">
+      <div class="dashboard__header">
+        <p>You don't have any notes yet.</p>
+        <a href="/notes/new" class="dashboard__create-note-button "
+          >Create New Note</a
+        >
+      </div>
+    </div>
+    <% } %>
+  </div>
+
+  <style>
+    .layout__body {
+      padding: 1rem;
+      background: #f6f7fb;
+      width: 80%;
+      padding-top: 10%;
+      padding-right: 8%;
+      margin-left: auto;
+    }
+    .dashboard__title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #2a2438;
+
+      font-weight: 300;
+    }
+  </style>
+
+
+  <style>
+    html {
+      overflow: scroll !important;
+    }
+  </style>
+
+  <%- include('../partials/footer') %>
+</div>

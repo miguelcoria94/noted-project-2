@@ -1,0 +1,176 @@
+
+
+<%- include('../partials/header') %> <%- include('../partials/sidebar') %>
+
+
+<div class="layout__container">
+  <div class="layout__body">
+    <div class="layout__body-header">
+      <h2 class="dashboard__title">Folders</h2>
+      <a href="/folders/new" class="dashboard__create-note-button"
+        >New Folder</a
+      >
+    </div>
+
+    <div class="layoutBody__content">
+      <% if (folders.length > 0) { %>
+      <div class="folders">
+        <% folders.forEach(folder => { %>
+        <div class="folder">
+          <a href="/folders/<%= folder._id %>" class="folder__link">
+            <div
+              class="folder__name"
+              style="
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 2rem;
+              "
+            >
+              <img
+                src="https://static-00.iconduck.com/assets.00/folder-icon-512x410-jvths5l6.png"
+                alt=""
+                height="130"
+                width="170"
+                style="
+                  opacity: 0.8;
+                  margin-bottom: 1rem;
+                  margin-top: 2rem;
+                  margin-bottom: 1.5rem;
+                "
+              />
+              <h3 class="folder__title" style="color: #2a2438">
+                <%= folder.name %>
+              </h3>
+            </div>
+          </a>
+        </div>
+        <% }) %>
+      </div>
+      <% } else { %>
+
+      <p style="text-align: left; margin-top: 2rem">
+        No folders created yet. Click the "New Folder" button to create a new
+        folder.
+      </p>
+      <% } %>
+    </div>
+  </div>
+
+  <script>
+    
+
+    if(<%= deleted %>) {
+      Toastify({
+        text: "Folder deleted successfully! 🗑️ ",
+        duration: 3000,
+        destination: "/notes",
+        newWindow: false,
+        close: true,
+        gravity: "top",
+        position: "center",
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right, #dc2626, #7f1d1d)",
+        },
+        onClick: function () {},
+      }).showToast();
+    }
+
+    sessionStorage.removeItem("deleted");
+
+    if(<%= newFolder %>) {
+      sessionStorage.setItem("newFolder", true);
+      Toastify({
+        text: "Folder created successfully! 📁 ",
+        duration: 3000,
+        destination: "/folders",
+        newWindow: false,
+        close: true,
+        gravity: "top",
+        position: "center",
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right, #16b5ce, #3dd1e7)",
+        },
+        onClick: function () {},
+      }).showToast();
+    }
+
+    sessionStorage.removeItem("newFolder");
+
+    if(<%= editFolder %>) {
+      sessionStorage.setItem("updatedFolder", true);
+      Toastify({
+        text: "Folder updated successfully! 📁 ",
+        duration: 3000,
+        destination: "/folders",
+        newWindow: false,
+        close: true,
+        gravity: "top",
+        position: "center",
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right, #16b5ce, #3dd1e7)",
+        },
+        onClick: function () {},
+      }).showToast();
+    }
+
+    sessionStorage.removeItem("editFolder");
+  </script>
+
+  <style>
+    .layout__body {
+      padding: 1rem;
+      background: #f6f7fb;
+      width: 90%;
+      padding-top: 13%;
+      padding-left: 19%;
+      margin-left: auto;
+    }
+
+    .delete-button:hover {
+      background-color: #d44545;
+    }
+    .dashboard__title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #2a2438;
+
+      font-weight: 300;
+    }
+
+    .layout__body-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .dashboard__create-note-button {
+      border-radius: 5px;
+      background-color: #3dd1e7;
+      color: #fcfefe;
+      font-size: 1rem;
+      font-family: "Roboto", sans-serif;
+      font-weight: 400;
+      padding: 0.75rem 1.65rem;
+      cursor: pointer;
+      box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
+        rgba(17, 17, 26, 0.05) 0px 8px 32px;
+      border: 2px solid #16b5ce;
+    }
+    html {
+      overflow: scroll !important;
+    }
+
+    .folders {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+  </style>
+
+  <%- include('../partials/footer') %>
+</div>

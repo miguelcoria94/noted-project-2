@@ -32,6 +32,10 @@ const noteSchema = new mongoose.Schema({
   rawEditorData: {
     type: String, 
   },
+  usersWithAccess: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "User",
+  },
 });
 
 module.exports = mongoose.model("Note", noteSchema);

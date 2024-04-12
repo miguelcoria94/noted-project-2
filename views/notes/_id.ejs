@@ -3,10 +3,8 @@
 <div class="view__note-container">
   <h1 class="view__note-title"><%= note.title %></h1>
   <div class="view__note-content" id="content"></div>
-  <!-- ai summary section -->
-
   <div>
-    <p style="font-weight: 500; color: #c340bf">
+    <p style="font-weight: 500; color: #e447a0">
       AI Summary - Powered by
       <img
         src="https://wpwww-prod.s3.us-west-2.amazonaws.com/uploads/sites/42/2023/08/Google_Bard_logo-300x300.jpg"
@@ -17,13 +15,15 @@
     </p>
     <div class="ai-summary"><%- note.aiSummary %></div>
   </div>
-  <!-- hidden input -->
   <input
     id="rawEditorData"
     name="rawEditorData"
     value="<%= note.rawEditorData %>"
     style="display: none"
   />
+
+  <% if (note.user.toString().trim() === user._id.toString().trim()) { %>
+
   <div style="display: flex; gap: 10px">
     <a
       href="/notes/<%= note._id %>/edit"
@@ -39,7 +39,28 @@
         Delete Note<i class="las la-trash"></i>
       </button>
     </form>
+
+
+    <form action="/notes/<%= note._id %>/share" method="POST">
+      <input
+        type="email"
+        name="email"
+        placeholder="Enter email to share"
+        required
+        style="
+          padding: 0.5rem 1rem;
+          border-radius: 5px;
+          border: 2px solid #ccc;
+          font-size: 1rem;
+        "
+      />
+      <button type="submit" class="edit__note-button">
+        Share Note<i class="las la-share"></i>
+      </button>
+    </form>
   </div>
+  <% } %> 
+  
 
   <script>
     const rawEditorData = document.getElementById("rawEditorData").value;
@@ -116,10 +137,11 @@
       display: inline-block;
       background-color: #3dd1e7;
       color: #fff;
-      padding: 10px 15px;
+      padding: 0.5rem 1rem;
       text-decoration: none;
       border-radius: 5px;
       font-size: 1rem;
+      border: 2px solid #1d9fb3;
     }
 
     li {
@@ -180,5 +202,47 @@
     }).showToast();
 
     sessionStorage.removeItem("editote");
+
+
+
   }
+
+  if(<%= shared %>) {
+
+      Toastify({
+        text: "Note shared successfully! 📧 ",
+        duration: 3000,
+        destination: "/notes",
+        newWindow: false,
+        close: true,
+        gravity: "top",
+        position: "center",
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right, #22c55e, #15803d)",
+        },
+        onClick: function () {},
+      }).showToast();
+    }
+
+    sessionStorage.removeItem("shared");
+
+    if(<%= failed %>) {
+      Toastify({
+        text: "Failed to share note! 📧 ",
+        duration: 3000,
+        destination: "/notes",
+        newWindow: false,
+        close: true,
+        gravity: "top",
+        position: "center",
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right, #dc2626, #7f1d1d)",
+        },
+        onClick: function () {},
+      }).showToast();
+    }
+
+    sessionStorage.removeItem("failed");
 </script>
