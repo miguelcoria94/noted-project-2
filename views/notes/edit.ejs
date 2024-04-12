@@ -1,0 +1,327 @@
+<%- include('../partials/header') %> <%- include('../partials/sidebar') %>
+
+<div class="edit__note-container">
+  <h1 class="edit__note-title">Edit Note</h1>
+
+  <!-- <div class="edit__form-container">
+   <p style="font-weight: 500; color: #c340bf">
+      AI Summary - Powered by
+      <img
+        src="https://wpwww-prod.s3.us-west-2.amazonaws.com/uploads/sites/42/2023/08/Google_Bard_logo-300x300.jpg"
+        height="20px"
+        width="auto"
+      />
+      Google Gemini
+    </p>
+    <div>
+        <%- note.aiSummary %>
+    </div>
+  </div> -->
+
+  <div class="edit__form-container">
+
+    <form
+      id="editNoteForm"
+      class="noteForm"
+      action="/notes/<%= note._id %>/update?_method=PUT" method="POST""
+
+    >
+      <div class="edit__note-input-wrapper">
+        <label for="title">Note Title</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          required
+          class="title__input"
+          value="<%= note.title %>"
+        />
+      </div>
+      <div id="editorjs"></div>
+
+      <!-- Container for Editor.js, initialized with existing note data -->
+      <input
+        type="hidden"
+        id="rawEditorData"
+        name="rawEditorData"
+        value="<%= note.rawEditorData %>"
+      />
+
+      <button type="submit">Update Note</button>
+    </form>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+
+<script>
+
+  const existingData = JSON.parse(
+    document.getElementById("rawEditorData").value
+  );
+  class SimpleList {
+    constructor({ data } = { data: { items: [] } }) {
+      this.data = data;
+      this.data.items = this.data.items || [];
+      this.wrapper = null;
+    }
+    static get toolbox() {
+      return {
+        title: "SimpleList",
+        icon: '<i class="las la-list"></i>',
+      };
+    }
+
+    render() {
+      this.wrapper = document.createElement("div");
+      this.wrapper.classList.add("simple-list");
+
+      this.list = document.createElement("ul");
+      this.data.items.forEach((item) => {
+        const li = document.createElement("li");
+        li.contentEditable = true; 
+        li.innerText = item;
+        this.list.appendChild(li);
+        li.style.listStyleType = "disc";
+        li.style.padding = "0.5rem";
+      });
+      this.wrapper.appendChild(this.list);
+
+      const addItemButton = document.createElement("button");
+      addItemButton.innerText = "Add item";
+      addItemButton.type = "button"; 
+      addItemButton.onclick = () => this.addItem();
+      this.wrapper.appendChild(addItemButton);
+      this.wrapper.style.border = "1px dashed lightgray";
+      this.wrapper.style.padding = "5px";
+
+      return this.wrapper;
+    }
+
+    addItem() {
+      const li = document.createElement("li");
+      li.classList.add("simple-list__item");
+      li.contentEditable = true;
+      li.focus(); 
+      this.list.appendChild(li);
+    }
+
+    save(blockContent) {
+      const items = [];
+      blockContent.querySelectorAll("li").forEach((li) => {
+        if (li.textContent.trim().length > 0) {
+        
+          items.push(li.textContent);
+        }
+      });
+      return { items };
+    }
+  }
+
+  class SimpleHeader {
+    static get toolbox() {
+      return {
+        title: "Header",
+        icon: "<i class='las la-heading'></i>",
+      };
+    }
+
+    constructor({ data }) {
+      this.data = data;
+    }
+
+    render() {
+      const h2 = document.createElement("h2");
+      h2.contentEditable = "true"; 
+      h2.innerText = this.data.text || ""; 
+
+      h2.style.border = "1px dashed lightgray";
+      h2.style.padding = "5px";
+      h2.classList.add("note__header");
+
+      return h2;
+    }
+
+    save(blockContent) {
+      return {
+        text: blockContent.innerText,
+      };
+    }
+  }
+
+  const editor = new EditorJS({
+    holder: "editorjs",
+    tools: {
+      header: SimpleHeader,
+      simpleList: SimpleList,
+    },
+    data: existingData, 
+  });
+
+  const editNoteForm = document.getElementById("editNoteForm");
+
+  editNoteForm.addEventListener("submit", async (e) => {
+    const updatedEditorData = await editor.save();
+    document.getElementById("rawEditorData").value =
+      JSON.stringify(updatedEditorData);
+
+      document.querySelector("button[type=submit]").disabled = true;
+    document.querySelector("button[type=submit]").innerText = "Saving...";
+    document.querySelector("button[type=submit]").style.backgroundColor =
+      "#ccc";
+    document.querySelector("button[type=submit]").innerHTML =
+      'Saving changes please wait <i class="las la-spinner la-spin"></i>';
+
+    document.querySelector("la-spinner").style.animation =
+      "spin 2s linear infinite";
+  });
+</script>
+
+<style>
+  html {
+    overflow: scroll;
+  }
+
+  .ce-paragraph {
+    padding: 1rem 0rem !important;
+  }
+  .edit__note-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  .edit__note-input-wrapper label {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #2a2438;
+  }
+
+  .edit__note-input-wrapper input {
+    padding: 0.5rem;
+    font-weight: 500;
+    border: none;
+    border-bottom: 2px solid #e8e8e8;
+  }
+
+  .edit__note-input-wrapper input:focus {
+    outline: none;
+  }
+
+  .title__input {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2a2438;
+  }
+  /* only lis in noteForm */
+  .simple-list__item {
+    border-bottom: 1px dashed rgb(236, 236, 236);
+    padding: 0.5rem;
+  }
+
+  .simple-list__item:focus {
+    outline: none;
+  }
+
+  .simple-list__item::before {
+    content: "• ";
+    color: #2a2438; /* or whatever color you prefer */
+  }
+
+  .edit__form-container {
+    background-color: white;
+    padding: 3rem 5rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+
+  .note__header {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #2a2438;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    display: inline-block;
+  }
+
+  button {
+    border-radius: 5px;
+  background-color: #3dd1e7;
+  color: #fcfefe;
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  padding: 0.75rem 1.65rem;
+  cursor: pointer;
+  border: 2px solid #16b5ce;
+  }
+
+  #editorjs {
+    display: flex;
+  }
+
+  #noteForm {
+    background-color: white !important;
+    padding: 3rem 5rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+
+  .edit__note-container {
+    background-color: #f6f7fb;
+
+    height: 100%;
+    display: flex;
+    padding: 3rem 5rem;
+    width: -webkit-fill-available;
+    grid-area: content;
+    width: 70%;
+    height: 70%;
+    padding-top: 10%;
+    margin-right: 5%;
+    margin-left: auto;
+    flex-direction: column;
+  }
+
+  .edit__note-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    padding-top: 2rem;
+    color: #2a2438;
+    font-weight: 300;
+  }
+
+  .ai-summary {
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .edit__note-button {
+      display: inline-block;
+      background-color: #3dd1e7;
+      color: #fff;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    li {
+      list-style: disc;
+      margin: 1rem 1rem;
+    }
+
+    p {
+      margin: 1rem 0;
+    }
+
+    h2 {
+      margin: 1rem 0;
+      font-weight: 500;
+      font-size: 1.2rem;
+    }
+</style>
+<%- include('../partials/footer') %>

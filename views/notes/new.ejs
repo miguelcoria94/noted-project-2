@@ -1,0 +1,248 @@
+<%- include('../partials/sidebar') %>
+
+<div class="create__note-container">
+  <h1 class="create__note-title">Create a New Note</h1>
+  <form id="noteForm" class="noteForm" action="/notes" method="POST">
+    <div class="create__note-input-wrapper">
+      <label for="title">Enter Note Title</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        required
+        class="title__input"
+      />
+    </div>
+
+    <!-- Container for Editor.js -->
+    <div id="editorjs"></div>
+    <input type="hidden" id="rawEditorData" name="rawEditorData" value="" />
+
+    <button type="submit">Create Note</button>
+  </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+
+<script>
+  class SimpleList {
+    constructor({ data } = { data: { items: [] } }) {
+      this.data = data;
+      this.data.items = this.data.items || [];
+      this.wrapper = null;
+    }
+    static get toolbox() {
+      return {
+        title: "SimpleList",
+        icon: '<i class="las la-list"></i>',
+      };
+    }
+
+    render() {
+      this.wrapper = document.createElement("div");
+      this.wrapper.classList.add("simple-list");
+
+      this.list = document.createElement("ul");
+      this.data.items.forEach((item) => {
+        const li = document.createElement("li");
+        li.contentEditable = true; 
+        li.innerText = item;
+        this.list.appendChild(li);
+        li.style.listStyleType = "disc";
+      });
+      this.wrapper.appendChild(this.list);
+
+      const addItemButton = document.createElement("button");
+      addItemButton.innerText = "Add item";
+      addItemButton.type = "button"; 
+      addItemButton.onclick = () => this.addItem();
+      this.wrapper.appendChild(addItemButton);
+      this.wrapper.style.border = "1px dashed lightgray";
+      this.wrapper.style.padding = "5px";
+
+      return this.wrapper;
+    }
+
+    addItem() {
+      const li = document.createElement("li");
+      li.classList.add("simple-list__item");
+      li.contentEditable = true;
+      li.focus();
+      this.list.appendChild(li);
+    }
+
+    save(blockContent) {
+      const items = [];
+      blockContent.querySelectorAll("li").forEach((li) => {
+        if (li.textContent.trim().length > 0) {
+          items.push(li.textContent);
+        }
+      });
+      return { items };
+    }
+  }
+
+  class SimpleHeader {
+    static get toolbox() {
+      return {
+        title: "Header",
+        icon: "<i class='las la-heading'></i>",
+      };
+    }
+
+    constructor({ data }) {
+      this.data = data;
+    }
+
+    render() {
+      const h2 = document.createElement("h2");
+      h2.contentEditable = "true"; 
+      h2.innerText = this.data.text || ""; 
+
+      h2.style.border = "1px dashed lightgray";
+      h2.style.padding = "5px";
+      h2.classList.add("note__header");
+
+      return h2;
+    }
+
+    save(blockContent) {
+      return {
+        text: blockContent.innerText,
+      };
+    }
+  }
+
+  const editor = new EditorJS({
+    holder: "editorjs",
+    tools: {
+      header: {
+        class: SimpleHeader,
+        inlineToolbar: true,
+      },
+      simpleList: SimpleList,
+    },
+    placeholder: "Start typing your note...",
+  });
+
+  const noteForm = document.getElementById("noteForm");
+
+  noteForm.addEventListener("submit", async (e) => {
+    const editorData = await editor.save();
+    document.getElementById("rawEditorData").value = JSON.stringify(editorData);
+    document.querySelector("button[type=submit]").disabled = true;
+    document.querySelector("button[type=submit]").innerText = "Saving...";
+    document.querySelector("button[type=submit]").style.backgroundColor =
+      "#ccc";
+    document.querySelector("button[type=submit]").innerHTML =
+      'Saving please wait <i class="las la-spinner la-spin"></i>';
+
+    document.querySelector("la-spinner").style.animation =
+      "spin 2s linear infinite";
+  });
+</script>
+
+<style>
+  html {
+    overflow: scroll;
+  }
+  .create__note-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  .create__note-input-wrapper label {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #2a2438;
+  }
+
+  .create__note-input-wrapper input {
+    padding: 0.5rem;
+    border: none;
+    border-bottom: 2px solid #e8e8e8;
+  }
+
+  .create__note-input-wrapper input:focus {
+    outline: none;
+  }
+
+  .title__input {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2a2438;
+  }
+  /* only lis in noteForm */
+  .simple-list__item {
+    border-bottom: 1px dashed rgb(236, 236, 236);
+    padding: 0.5rem;
+  }
+
+  .simple-list__item:focus {
+    outline: none;
+  }
+
+  .simple-list__item::before {
+    content: "• ";
+    color: #2a2438; /* or whatever color you prefer */
+  }
+
+  .note__header {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #2a2438;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    display: inline-block;
+  }
+
+  button {
+    border-radius: 5px;
+    background-color: #3dd1e7;
+    color: #fcfefe;
+    font-size: 1rem;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    padding: 0.75rem 1.65rem;
+    cursor: pointer;
+    border: 2px solid #16b5ce;
+  }
+
+  #editorjs {
+    display: flex;
+  }
+
+  #noteForm {
+    background-color: white !important;
+    padding: 3rem 5rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+
+  .create__note-container {
+    background-color: #f6f7fb;
+
+    height: 100%;
+    display: flex;
+    padding: 3rem 5rem;
+    width: -webkit-fill-available;
+    grid-area: content;
+    width: 70%;
+    height: 70%;
+    padding-top: 10%;
+    margin-right: 5%;
+    margin-left: auto;
+    flex-direction: column;
+  }
+
+  .create__note-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    padding-top: 2rem;
+    color: #2a2438;
+    font-weight: 300;
+  }
+</style>
+
+<%- include('../partials/footer') %>

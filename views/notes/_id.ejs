@@ -1,0 +1,185 @@
+<%- include('../partials/header') %> <%- include('../partials/sidebar') %>
+
+<div class="view__note-container">
+  <h1 class="view__note-title"><%= note.title %></h1>
+  <div class="view__note-content" id="content"></div>
+  <!-- ai summary section -->
+
+  <div>
+    <p style="font-weight: 500; color: #c340bf">
+      AI Summary - Powered by
+      <img
+        src="https://wpwww-prod.s3.us-west-2.amazonaws.com/uploads/sites/42/2023/08/Google_Bard_logo-300x300.jpg"
+        height="20px"
+        width="auto"
+      />
+      Google Gemini
+    </p>
+    <div class="ai-summary"><%- note.aiSummary %></div>
+  </div>
+  <!-- hidden input -->
+  <input
+    id="rawEditorData"
+    name="rawEditorData"
+    value="<%= note.rawEditorData %>"
+    style="display: none"
+  />
+  <div style="display: flex; gap: 10px">
+    <a
+      href="/notes/<%= note._id %>/edit"
+      class="dashboard__note-action edit-icon"
+      >Edit Note</a
+    >
+    <form
+      action="/notes/<%= note._id %>?_method=DELETE"
+      method="POST"
+      class="dashboard__note-action"
+    >
+      <button type="submit" class="dashboard__note-action-butto delete-button">
+        Delete Note<i class="las la-trash"></i>
+      </button>
+    </form>
+  </div>
+
+  <script>
+    const rawEditorData = document.getElementById("rawEditorData").value;
+
+    function parseEditorData() {
+      let htmlContent = "";
+
+      editorData = JSON.parse(rawEditorData);
+
+      editorData.blocks.forEach((block) => {
+        switch (block.type) {
+          case "header":
+            htmlContent += `<h2>${block.data.text}</h2>`;
+            break;
+          case "paragraph":
+            htmlContent += `<p>${block.data.text}</p>`;
+            break;
+          case "simpleList":
+            const listTag = block.data.style === "unordered" ? "ul" : "ol";
+            let listItems = "";
+            block.data.items.forEach((item) => {
+              listItems += `<li>${item}</li>`;
+            });
+            htmlContent += `<${listTag}>${listItems}</${listTag}>`;
+            break;
+          default:
+            console.log(`No handler for block type "${block.type}"`);
+        }
+      });
+
+      return htmlContent;
+    }
+
+    document.getElementById("content").innerHTML = parseEditorData();
+  </script>
+
+  <style>
+    html {
+      overflow: scroll;
+    }
+    .view__note-container {
+      background-color: white;
+      margin-bottom: 3rem !important;
+      padding: 2rem;
+      margin: auto;
+      width: 80%;
+      max-width: 800px;
+      border-radius: 8px;
+      margin-top: 10%;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .view__note-title {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .view__note-content {
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .ai-summary {
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .edit__note-button {
+      display: inline-block;
+      background-color: #3dd1e7;
+      color: #fff;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    li {
+      list-style: disc;
+      margin: 1rem 1rem;
+    }
+
+    p {
+      margin: 1rem 0;
+    }
+
+    h2 {
+      margin: 1rem 0;
+      font-weight: 500;
+      font-size: 1.2rem;
+    }
+  </style>
+
+  <%- include('../partials/footer') %>
+</div>
+
+
+<script>
+    if(<%= newNote %>) {
+      sessionStorage.setItem("newNote", true);
+      Toastify({
+        text: "Note created successfully! 😊 ",
+        duration: 3000,
+        destination: "/notes",
+        newWindow: false,
+        close: true,
+        gravity: "top",
+        position: "center", 
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right, #22c55e, #15803d)",
+        },
+        onClick: function () {}, 
+      }).showToast();
+
+      sessionStorage.removeItem("newNote");
+    }
+
+     if(<%= editNote %>) {
+      sessionStorage.setItem("newNote", true);
+      Toastify({
+        text: "Note updated successfully! 😊 ",
+        duration: 3000,
+        destination: "/notes",
+        newWindow: false,
+        close: true,
+        gravity: "top",
+        position: "center", 
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right, #22c55e, #15803d)",
+        },
+        onClick: function () {}, 
+      }).showToast();
+
+      sessionStorage.removeItem("editote");
+    }
+</script>

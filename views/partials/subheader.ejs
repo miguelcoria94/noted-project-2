@@ -1,14 +1,16 @@
 <div class="layout__subheader">
-  <div>
+  <div class="icons">
     <i
       class="las la-bars layout__subheader-icon"
       id="collapse"
+      style="display: none"
       class="layout__subheader-icon"
     ></i>
     <i
       class="las la-arrow-right layout__subheader-icon"
       id="expand"
       class="layout__subheader-icon"
+      style="display: block"
     ></i>
   </div>
   <!-- user obj -->
@@ -39,6 +41,7 @@
   const sidebarTitle = document.querySelector(".collapsed-title");
   const sidbarTitleExpaneded = document.querySelector(".expanded-title");
   const allSideBarText = document.querySelectorAll(".sidebar__link-text");
+  const icons = document.querySelector(".icons");
 
   collapseButton.addEventListener("click", function () {
     layoutSidebar.classList.toggle("collapsed");
@@ -54,6 +57,8 @@
       text.style.opacity = "0";
       text.style.display = "none";
     });
+
+    icons.style.left = "70px";
   });
 
   expandButton.addEventListener("click", function () {
@@ -65,6 +70,7 @@
     sidebarTitle.style.visibility = "hidden";
     sidebarTitle.style.display = "none";
     sidbarTitleExpaneded.style.display = "inline-block";
+    icons.style.left = "300px";
 
     allSideBarText.forEach((text) => {
       text.style.opacity = "1";
@@ -73,3 +79,9 @@
   });
 </script>
 
+<style>
+  .icons {
+    position: relative;
+    left: 70px;
+  }
+</style>

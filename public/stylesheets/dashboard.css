@@ -7,6 +7,9 @@
   font-weight: 400;
   padding: 0.75rem 1.65rem;
   cursor: pointer;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  border: 2px solid #16b5ce;
 }
 
 .dashboard__create-note-button:hover {
@@ -16,7 +19,77 @@
 .dashboard__notes {
   padding-top: 2rem;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+}
+
+.dashboard__header {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+}
+
+.dashboard__card {
+  border-radius: 5px;
+  background-color: #fcfefe;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  border: 1px solid #e0e0e0;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+
+.dashboard__card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  padding-bottom: 4rem;
+  gap: 1rem;
+}
+
+.dashboard__note-header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 4rem;
+}
+
+.dashboard__card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-button {
+  border: 2px solid #df2727;
+  color: white;
+  background-color: #ff4d4d;
+
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.edit-icon {
+  border: 2px solid #c340bf;
+  background-color: #c340bfc5;
+  color: #fcfefe;
+  color: white;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: block;
+}
+
+.view-button {
+  border: 2px solid #c340bf;
+  background-color: #c340bfc5;
+  color: #fcfefe;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.dashboard__card-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

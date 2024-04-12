@@ -1,22 +1,37 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-// I want the note to have a user id that references the user who created the note.
 
-const noteSchema = new Schema(
+const blockSchema = new Schema(
   {
-    title: String,
-    body: String,
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
+    id: { type: String, required: true },
+    type: { type: String, required: true },
+    data: {
+      text: String,
+      level: Number,
+      style: String,
+      items: [String],
     },
-    aiSummary: String,
-
   },
-  {
-    timestamps: true,
-  }
+  { _id: false }
 );
 
+const noteSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  body: {
+    type: String,
+  },
+  aiSummary: String,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  rawEditorData: {
+    type: String, 
+  },
+});
 
 module.exports = mongoose.model("Note", noteSchema);

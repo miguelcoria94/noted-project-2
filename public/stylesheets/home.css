@@ -3,8 +3,10 @@
 .home__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+
   height: 100vh;
-  width: 100vw;
+  max-height: 100vh;
 }
 
 .home__grid-area {

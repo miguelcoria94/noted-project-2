@@ -5,61 +5,124 @@
 
   <% if (userNotes.length > 0) { %>
   <div class="dashboard__notes">
-    <h2>Your Notes</h2>
-    <ul>
+    <div class="dashboard__header">
+      <h2 style="font-weight: bold">Your Notes</h2>
+
+      <a href="/notes/new" class="dashboard__create-note-button"
+        >Create New Note</a>
+    </div>
+
+    <div class="dashboard__card-grid">
       <% userNotes.forEach(note => { %>
-      <li>
-        <a href="/notes/<%= note._id %>"> <%= note.title %> </a>
-      </li>
-      <% }) %>
-    </ul>
+      <div class="dashboard__card">
+        <div class="dashboard__note-header">
+          <h3 class="dashboard__card-title"><%= note.title %></h3>
+        </div>
+        <div class="dashboard__card-footer">
+          <a
+            href="/notes/<%= note._id %>"
+            class="dashboard__note-action view-button"
+            >Go to note <i class="las la-angle-double-right" style="position: relative;top: 1px;"></i></a>
+          
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+    <% } else { %>
+    <div class="dashboard__notes">
+      <div class="dashboard__header">
+        <p>You don't have any notes yet.</p>
+        <a href="/notes/new" class="dashboard__create-note-button "
+          >Create New Note</a
+        >
+      </div>
+    </div>
+    <% } %>
   </div>
-  <% } else { %>
-  <div class="dashboard__notes">
-    <p>You don't have any notes yet.</p>
-    <a href="/notes/new" class="dashboard__create-note-button"
-      >Create New Note <i class="las la-plus-square"></i
-    ></a>
-  </div>
-  <% } %>
+
+  <style>
+    .layout__body {
+      padding: 1rem;
+      background: #f6f7fb;
+      width: 80%;
+      padding-top: 10%;
+      padding-right: 8%;
+      margin-left: auto;
+    }
+    .dashboard__title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #2a2438;
+
+      font-weight: 300;
+    }
+  </style>
+
+  <script>
+
+    if(<%= deleteNote %>) {
+      Toastify({
+        text: "Note deleted successfully! 😊 ",
+        duration: 3000,
+        destination: "/notes",
+        newWindow: false,
+        close: true,
+        gravity: "top", 
+        position: "center", 
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right, #dc2626, #7f1d1d)",
+        },
+        onClick: function () {},
+      }).showToast();
+    }
+
+    sessionStorage.removeItem("deleteNote");
+    if(<%= newNote %>) {
+      sessionStorage.setItem("newNote", true);
+      Toastify({
+        text: "Note created successfully! 😊 ",
+        duration: 3000,
+        destination: "/notes",
+        newWindow: false,
+        close: true,
+        gravity: "top", 
+        position: "center", 
+        stopOnFocus: true, 
+        style: {
+          background: "linear-gradient(to right, #22c55e, #15803d)",
+        },
+        onClick: function () {},
+      }).showToast();
+
+      sessionStorage.removeItem("newNote");
+    }
+    if (sessionStorage.getItem("initialLogin") !== null) {
+      Toastify({
+        text: "You're logged in! 🎉 ",
+        duration: 3000,
+        destination: "/notes",
+        newWindow: false,
+        close: true,
+        gravity: "top", 
+        position: "center",
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(to right, #c340bfc5, #3dd1e7)",
+        },
+        onClick: function () {},
+      }).showToast();
+
+      sessionStorage.removeItem("initialLogin");
+    }
+  </script>
+
+  <style>
+    html {
+      overflow: scroll !important;
+    }
+  </style>
+
+  <%- include('../partials/footer') %>
 </div>
-
-<style>
-  .layout__body {
-    padding: 1rem;
-    background: #f5f5f5;
-    height: 100%;
-    padding: 3rem 5rem;
-  }
-  .dashboard__title {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: #2a2438;
-
-    font-weight: 300;
-  }
-</style>
-
-<script>
-  // check for inital login in local storage and show toast
-  if (sessionStorage.getItem("initialLogin") !== null) {
-    Toastify({
-      text: "You're logged in! 🎉 ",
-      duration: 3000,
-      destination: "/notes",
-      newWindow: false,
-      close: true,
-      gravity: "top", // `top` or `bottom`
-      position: "center", // `left`, `center` or `right`
-      stopOnFocus: true, // Prevents dismissing of toast on hover
-      style: {
-        background: "linear-gradient(to right, #c340bfc5, #3dd1e7)",
-      },
-      onClick: function () {}, // Callback after click
-    }).showToast();
-
-    sessionStorage.removeItem("initialLogin");
-  }
-</script>
-
-<%- include('../partials/footer') %>

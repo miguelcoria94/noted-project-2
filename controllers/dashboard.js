@@ -7,6 +7,8 @@ async function index(req, res) {
     title: "Dashboard",
     user: req.user,
     userNotes,
+    newNote: false,
+    deleteNote: false,
   });
 }
 

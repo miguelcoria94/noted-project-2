@@ -1,15 +1,34 @@
 <%- include('../partials/header') %>
 
 <div class="layout__wrapper">
-  <div class="layout__sidebar">
+  <div class="layout__sidebar collapsed layout__sidebar-collapse">
     <div>
-      <h1 class="sidebar__title collapsed-title">
-        <i class="las la-sticky-note"></i><span>.</span>
+      <h1
+        class="sidebar__title collapsed-title"
+        style="visibility: visible; display: inline-block"
+      >
+        <img
+          src="https://wpwww-prod.s3.us-west-2.amazonaws.com/uploads/sites/42/2023/08/Google_Bard_logo-300x300.jpg"
+          height="30px"
+          width="auto"
+          position="relative"
+        />
+        <!-- <i class="las la-sticky-note"></i><span></span> -->
       </h1>
-      <h1 class="sidebar__title expanded-title">
-        <i style="position: relative; left: 10px">N</i>
-        <div style="display: inline" class="sidebar__title-expanded">oted</div>
-        <span>.</span>
+      <h1
+        class="sidebar__title expanded-title"
+        style="visibility: hidden; display: none"
+      >
+        <i style="position: relative; left: 10px"
+          ><img
+            src="https://wpwww-prod.s3.us-west-2.amazonaws.com/uploads/sites/42/2023/08/Google_Bard_logo-300x300.jpg"
+            height="20px"
+            width="auto"
+          />N</i
+        >
+        <div style="display: inline" class="sidebar__title-expanded">
+          oted<span>.</span>
+        </div>
       </h1>
     </div>
     <div>
@@ -18,24 +37,30 @@
           <a href="/dashboard" class="sidebar-link">
             <div>
               <i class="las la-home"></i>
-              <span class="sidebar__link-text">Dashboard</span>
+              <span class="sidebar__link-text" style="opacity: 0; display: none"
+                >Dashboard</span
+              >
             </div>
           </a>
         </li>
-        <li>
+        <!-- <li>
           <a href="/chat" class="sidebar-link">
             <div>
               <i class="las la-comments"></i>
-              <span class="sidebar__link-text">AI Chat</span>
+              <span class="sidebar__link-text" style="opacity: 0; display: none"
+                >AI Chat</span
+              >
             </div>
           </a>
-        </li>
+        </li> -->
 
         <li>
           <a href="/notes" class="sidebar-link">
             <div>
               <i class="las la-folder"></i>
-              <span class="sidebar__link-text">Folders</span>
+              <span class="sidebar__link-text" style="opacity: 0; display: none"
+                >Folders</span
+              >
             </div>
           </a>
         </li>
@@ -51,7 +76,9 @@
           <a href="/users" class="sidebar-link">
             <div>
               <i class="las la-share"></i>
-              <span class="sidebar__link-text">Shared Notes</span>
+              <span class="sidebar__link-text" style="opacity: 0; display: none"
+                >Shared Notes</span
+              >
             </div>
           </a>
         </li>
@@ -63,7 +90,11 @@
       <a href="/logout" method="post" class="sidebar-link">
         <div>
           <i class="las la-sign-out-alt logout"></i>
-          <span class="sidebar__link-text logout">Logout</span>
+          <span
+            class="sidebar__link-text logout"
+            style="opacity: 0; display: none"
+            >Logout</span
+          >
         </div>
       </a>
     </div>
@@ -78,3 +109,5 @@
 </div> -->
     <!-- </div>
 </div> -->
+  </div>
+</div>
