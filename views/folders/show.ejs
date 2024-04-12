@@ -3,7 +3,7 @@
 <div class="layout__body">
   <h1 class="dashboard__title">Folder - <%= folder.name %></h1>
 
-  <% if (userNotes.length > 0) { %>
+ 
   <div class="dashboard__notes">
     <div class="dashboard__header" style="margin-bottom: 2rem;">
         <a href="/folders" style="color: #3dd1e7; font-weight: bold;"
@@ -22,7 +22,7 @@
         
 
     </div>
-
+ <% if (userNotes.length > 0) { %>
     <div class="dashboard__card-grid">
       <% userNotes.forEach(note => { %>
       <div class="dashboard__card">
@@ -43,10 +43,8 @@
     <% } else { %>
     <div class="dashboard__notes">
       <div class="dashboard__header">
-        <p>You don't have any notes yet.</p>
-        <a href="/notes/new" class="dashboard__create-note-button "
-          >Create New Note</a
-        >
+        <p>No notes have been shared with you yet.</p>
+        
       </div>
     </div>
     <% } %>
