@@ -24,6 +24,8 @@ Noted is an AI note app that uses Google's Generative AI API to summarize notes 
 # Getting Started
 
 [Click to View Project Planning](https://trello.com/b/D22zX2uR/miguel-unit-2-project)
+[Click to View Figjam Board used for Planning]([https://trello.com/b/D22zX2uR/miguel-unit-2-project](https://www.figma.com/file/HGfcL9ILTyLgsM8Aa99Lg5/Miguel-Unit-2-Project-Trello-Board?type=whiteboard&node-id=0-1&t=DVDEHEKfXd1QUrUp-0))
+
 [Click to Play Connect Four!](your deployment url here)
 
 # Next Steps
