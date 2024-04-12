@@ -36,7 +36,7 @@
               name="notes"
               id="<%= note._id %>"
               value="<%= note._id %>"
-              checked="<%= folder.notes.includes(note._id) %>"
+              <% if(folder.notes.includes(note._id)) { %> checked <% } %>
             />
             <label for="<%= note._id %>" class="form__label"
               ><%= note.title %></label
