@@ -83,11 +83,11 @@
     .view__note-container {
       background-color: white;
       margin-bottom: 3rem !important;
-      padding: 2rem;
+      padding: 3rem;
       margin: auto;
       width: 80%;
       max-width: 800px;
-      border-radius: 8px;
+      border-radius: 25px;
       margin-top: 10%;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
@@ -141,45 +141,44 @@
   <%- include('../partials/footer') %>
 </div>
 
-
 <script>
-    if(<%= newNote %>) {
-      sessionStorage.setItem("newNote", true);
-      Toastify({
-        text: "Note created successfully! 😊 ",
-        duration: 3000,
-        destination: "/notes",
-        newWindow: false,
-        close: true,
-        gravity: "top",
-        position: "center", 
-        stopOnFocus: true,
-        style: {
-          background: "linear-gradient(to right, #22c55e, #15803d)",
-        },
-        onClick: function () {}, 
-      }).showToast();
+  if(<%= newNote %>) {
+    sessionStorage.setItem("newNote", true);
+    Toastify({
+      text: "Note created successfully! 😊 ",
+      duration: 3000,
+      destination: "/notes",
+      newWindow: false,
+      close: true,
+      gravity: "top",
+      position: "center",
+      stopOnFocus: true,
+      style: {
+        background: "linear-gradient(to right, #22c55e, #15803d)",
+      },
+      onClick: function () {},
+    }).showToast();
 
-      sessionStorage.removeItem("newNote");
-    }
+    sessionStorage.removeItem("newNote");
+  }
 
-     if(<%= editNote %>) {
-      sessionStorage.setItem("newNote", true);
-      Toastify({
-        text: "Note updated successfully! 😊 ",
-        duration: 3000,
-        destination: "/notes",
-        newWindow: false,
-        close: true,
-        gravity: "top",
-        position: "center", 
-        stopOnFocus: true,
-        style: {
-          background: "linear-gradient(to right, #22c55e, #15803d)",
-        },
-        onClick: function () {}, 
-      }).showToast();
+   if(<%= editNote %>) {
+    sessionStorage.setItem("newNote", true);
+    Toastify({
+      text: "Note updated successfully! 😊 ",
+      duration: 3000,
+      destination: "/notes",
+      newWindow: false,
+      close: true,
+      gravity: "top",
+      position: "center",
+      stopOnFocus: true,
+      style: {
+        background: "linear-gradient(to right, #22c55e, #15803d)",
+      },
+      onClick: function () {},
+    }).showToast();
 
-      sessionStorage.removeItem("editote");
-    }
+    sessionStorage.removeItem("editote");
+  }
 </script>

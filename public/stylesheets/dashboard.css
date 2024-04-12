@@ -30,13 +30,11 @@
 }
 
 .dashboard__card {
+  background-color: white !important;
+  padding: 2rem;
   border-radius: 5px;
-  background-color: #fcfefe;
-  padding: 1.5rem;
-  margin-top: 1.5rem;
-  border: 1px solid #e0e0e0;
-  box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
-    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
 .dashboard__card-grid {
