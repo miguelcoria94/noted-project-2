@@ -5,6 +5,11 @@ Noted is an AI note app that uses Google's Generative AI API to summarize notes 
 # Screenshot
 ![Noted Homepage](https://i.ibb.co/t81w4hb/Screenshot-2024-04-12-at-12-13-49-AM.png)
 ![Noted Dashboard](https://i.ibb.co/j4YLGzW/Screenshot-2024-04-12-at-12-15-54-AM.png)
+![Noted Dashboard](https://i.ibb.co/njmj3pF/Screenshot-2024-04-12-at-12-29-35-AM.png)
+![Noted Dashboard](https://i.ibb.co/VjpKJBH/Screenshot-2024-04-12-at-12-31-10-AM.png)
+
+
+
 
 # Technologies Used
 
