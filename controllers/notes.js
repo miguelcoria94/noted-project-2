@@ -11,7 +11,7 @@ const {
 const MODEL_NAME = "gemini-1.0-pro";
 const API_KEY = process.env.GEMINI_API_KEY;
 
-async function run(prompt) {
+async function run(prompt, title) {
   const genAI = new GoogleGenerativeAI(API_KEY);
   const model = genAI.getGenerativeModel({ model: MODEL_NAME });
 
@@ -45,7 +45,7 @@ async function run(prompt) {
     {
       text: "We aim to enhance our application's note-taking feature by incorporating AI-driven summarizations and expansions that provide additional context and insights to our users' entries. The desired tone should be informal yet respectful, ensuring the content remains accessible to a wide audience. Specifically, the model should prioritize clarity and conciseness, stripping away any unnecessary jargon or complex vocabulary that might obscure the intended message.For style, we prefer a friendly and engaging approach that encourages users to continue interacting with our platform. Summaries should not only condense information but also highlight key points in a manner that's easy to digest. When adding information, the model should source from credible, up-to-date contexts to enrich the user's original note without overwhelming them with excessive detail.In terms of response formatting, we request that the model's output be in clean, well-structured HTML, enabling seamless integration into our web interface. This HTML should include basic formatting—such as headings, paragraphs, and lists—to aid readability and visual appeal.Our objective with these enhancements is to create a more valuable and interactive note-taking experience that aids memory retention and understanding, making our app an indispensable tool for our users' daily lives and learning processes. Your response must be in an HTML string without (```html) just the HTML. remember you are only summarizing the user input. You can add some note suggestions if you want in HTML.  only include valid HTML. exclude the head and body. Do not add anything about what we are doing with the output.",
     },
-    { text: `input: ${prompt}` },
+    { text: `input: ${title} - ${prompt}` },
     { text: "output: " },
   ];
 
@@ -76,7 +76,7 @@ async function show(req, res) {
 }
 
 async function update(req, res) {
-  let summary = await run(req.body.rawEditorData);
+  let summary = await run(req.body.rawEditorData, req.body.title);
   const note = await Note.findById(req.params.id);
   note.aiSummary = summary;
   note.title = req.body.title;
